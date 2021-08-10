@@ -41,7 +41,7 @@ void createWebGLRenderer(jsi::Runtime &runtime, EXGLContext *, initGlesContext);
 jsi::Value createWebGLObject(
     jsi::Runtime &runtime,
     EXWebGLClass webglClass,
-    std::initializer_list<jsi::Value>&& args);
+    std::initializer_list<jsi::Value> &&args);
 std::string getConstructorName(EXWebGLClass value);
 
 } // namespace gl_cpp

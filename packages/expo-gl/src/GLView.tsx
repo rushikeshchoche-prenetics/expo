@@ -522,6 +522,8 @@ const getGl = (exglCtxId: number): ExpoWebGLRenderingContext => {
   const gl = global.__EXGLContexts[exglCtxId];
   gl.__exglCtxId = exglCtxId;
   delete global.__EXGLContexts[exglCtxId];
+  console.log(gl);
+  return gl;
 
   // determine the prototype to use, depending on OpenGL ES version
   const glesVersion = gl.getParameter(gl.VERSION);
@@ -562,21 +564,3 @@ const getContextId = (exgl?: ExpoWebGLRenderingContext | number): number => {
   }
   return exglCtxId;
 };
-
-global.WebGLRenderingContext = WebGLRenderingContext;
-global.WebGL2RenderingContext = WebGL2RenderingContext;
-global.WebGLObject = WebGLObject;
-global.WebGLBuffer = WebGLBuffer;
-global.WebGLFramebuffer = WebGLFramebuffer;
-global.WebGLProgram = WebGLProgram;
-global.WebGLRenderbuffer = WebGLRenderbuffer;
-global.WebGLShader = WebGLShader;
-global.WebGLTexture = WebGLTexture;
-global.WebGLUniformLocation = WebGLUniformLocation;
-global.WebGLActiveInfo = WebGLActiveInfo;
-global.WebGLShaderPrecisionFormat = WebGLShaderPrecisionFormat;
-global.WebGLQuery = WebGLQuery;
-global.WebGLSampler = WebGLSampler;
-global.WebGLSync = WebGLSync;
-global.WebGLTransformFeedback = WebGLTransformFeedback;
-global.WebGLVertexArrayObject = WebGLVertexArrayObject;

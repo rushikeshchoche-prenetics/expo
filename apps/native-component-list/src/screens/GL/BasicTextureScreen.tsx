@@ -4,6 +4,7 @@ import GLWrap from './GLWrap';
 
 export default GLWrap('Basic texture use', async gl => {
   const vert = gl.createShader(gl.VERTEX_SHADER)!;
+  console.log(gl instanceof WebGL2RenderingContext);
   gl.shaderSource(
     vert,
     `
