@@ -14,11 +14,15 @@ typedef NS_ENUM(NSInteger, EXUpdatesErrorRecoveryTask) {
   EXUpdatesErrorRecoveryTaskCrash
 };
 
+static NSInteger const EXUpdatesErrorRecoveryRemoteLoadTimeoutMs = 5000;
+
 @interface EXUpdatesErrorRecovery ()
 
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *pipeline;
 @property (nonatomic, assign) BOOL isRunning;
 @property (nonatomic, assign) BOOL isWaitingForRemoteUpdate;
+@property (nonatomic, assign) NSInteger remoteLoadTimeout;
+
 @property (nonatomic, strong) dispatch_queue_t errorRecoveryQueue;
 
 @property (nonatomic, strong) NSMutableArray *encounteredErrors;
@@ -29,6 +33,13 @@ typedef NS_ENUM(NSInteger, EXUpdatesErrorRecoveryTask) {
 
 - (instancetype)init
 {
+  return [self initWithErrorRecoveryQueue:dispatch_queue_create("expo.controller.errorRecoveryQueue", DISPATCH_QUEUE_SERIAL)
+                        remoteLoadTimeout:EXUpdatesErrorRecoveryRemoteLoadTimeoutMs];
+}
+
+- (instancetype)initWithErrorRecoveryQueue:(dispatch_queue_t)errorRecoveryQueue
+                         remoteLoadTimeout:(NSInteger)remoteLoadTimeout
+{
   if (self = [super init]) {
     _pipeline = @[
       @(EXUpdatesErrorRecoveryTaskWaitForRemoteUpdate),
@@ -38,7 +49,8 @@ typedef NS_ENUM(NSInteger, EXUpdatesErrorRecoveryTask) {
     ].mutableCopy;
     _isRunning = NO;
     _isWaitingForRemoteUpdate = NO;
-    _errorRecoveryQueue = dispatch_queue_create("expo.controller.errorRecoveryQueue", DISPATCH_QUEUE_SERIAL);
+    _errorRecoveryQueue = errorRecoveryQueue;
+    _remoteLoadTimeout = remoteLoadTimeout;
     _encounteredErrors = [NSMutableArray new];
   }
   return self;
@@ -130,7 +142,7 @@ typedef NS_ENUM(NSInteger, EXUpdatesErrorRecoveryTask) {
   dispatch_assert_queue(_errorRecoveryQueue);
   if (_delegate.remoteLoadStatus == EXUpdatesRemoteLoadStatusLoading) {
     _isWaitingForRemoteUpdate = YES;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), _errorRecoveryQueue, ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, _remoteLoadTimeout * NSEC_PER_MSEC), _errorRecoveryQueue, ^{
       if (!self->_isWaitingForRemoteUpdate) {
         return;
       }

@@ -27,6 +27,10 @@ typedef NS_ENUM(NSInteger, EXUpdatesRemoteLoadStatus) {
 
 @property (nonatomic, weak) id<EXUpdatesErrorRecoveryDelegate> delegate;
 
+// for testing purposes
+- (instancetype)initWithErrorRecoveryQueue:(dispatch_queue_t)errorRecoveryQueue
+                         remoteLoadTimeout:(NSInteger)remoteLoadTimeout;
+
 - (void)handleError:(NSError *)error fromLaunchedUpdate:(nullable EXUpdatesUpdate *)launchedUpdate;
 - (void)handleException:(NSException *)exception fromLaunchedUpdate:(nullable EXUpdatesUpdate *)launchedUpdate;
 - (void)notifyNewRemoteLoadStatus:(EXUpdatesRemoteLoadStatus)newStatus;
