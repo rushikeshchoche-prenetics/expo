@@ -29,11 +29,15 @@ typedef NS_ENUM(NSInteger, EXUpdatesRemoteLoadStatus) {
 
 // for testing purposes
 - (instancetype)initWithErrorRecoveryQueue:(dispatch_queue_t)errorRecoveryQueue
+                            diskWriteQueue:(nullable dispatch_queue_t)diskWriteQueue
                          remoteLoadTimeout:(NSInteger)remoteLoadTimeout;
 
 - (void)handleError:(NSError *)error fromLaunchedUpdate:(nullable EXUpdatesUpdate *)launchedUpdate;
 - (void)handleException:(NSException *)exception fromLaunchedUpdate:(nullable EXUpdatesUpdate *)launchedUpdate;
 - (void)notifyNewRemoteLoadStatus:(EXUpdatesRemoteLoadStatus)newStatus;
+
++ (nullable NSString *)consumeErrorLog;
+- (void)writeErrorOrExceptionToLog:(id)errorOrException;
 
 @end
 
