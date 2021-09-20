@@ -180,6 +180,7 @@ PODS:
     - SVGKit (~> 2.1)
   - ExpoModulesCore (0.3.2):
     - React-Core
+    - ReactCommon/turbomodule/core
   - EXPrint (10.2.0):
     - ExpoModulesCore
   - EXRandom (11.2.0):
@@ -1258,7 +1259,7 @@ SPEC CHECKSUMS:
   expo-dev-menu: 2a8ba15595d6222d3b5e1c0a0e5c88f4c6d6f548
   expo-dev-menu-interface: cca641e9e52dfe688fd24c67795f14d6daea4bb9
   expo-image: 5c67622b3c7f5918978deb44d4c0642ffbc2a7cf
-  ExpoModulesCore: 8877484ffd559d5ffe4860d2767c4087ec096a28
+  ExpoModulesCore: 300d4f67acbfe06fee67d3d2b32c3b55eeef13d3
   EXPrint: 7428428852f60bf5fd855f0b2374c5831099e3fb
   EXRandom: 369dffcbe5ec8fc8d18b6e7cc233560f03cc88d1
   EXScreenCapture: 9c78fd8005297872353ebc0185fae13eac612898
@@ -1337,7 +1338,7 @@ SPEC CHECKSUMS:
   React-RCTText: 41a2e952dd9adc5caf6fb68ed46b275194d5da5f
   React-RCTVibration: 24600e3b1aaa77126989bc58b6747509a1ba14f3
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
-  ReactCommon: 149906e01aa51142707a10665185db879898e966
+  ReactCommon: d61821e0023d44a67e0d95103d590d52eaac8d2b
   RNCAsyncStorage: 9b7605e899f9acb2fba33e87952c529731265453
   RNCMaskedView: b7a3b119b1d738734a9d761e4220c6850bb248a3
   RNCPicker: f7a40b21b915b7a187624d52f52b7bc2f73ea413

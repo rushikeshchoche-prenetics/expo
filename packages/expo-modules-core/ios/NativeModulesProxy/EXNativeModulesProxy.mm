@@ -8,6 +8,8 @@
 #import <React/RCTModuleData.h>
 #import <React/RCTEventDispatcherProtocol.h>
 
+#import <jsi/jsi.h>
+
 #import <ExpoModulesCore/EXNativeModulesProxy.h>
 #import <ExpoModulesCore/EXEventEmitter.h>
 #import <ExpoModulesCore/EXViewManager.h>
@@ -15,6 +17,7 @@
 #import <ExpoModulesCore/EXViewManagerAdapterClassesRegistry.h>
 #import <ExpoModulesCore/EXModuleRegistryProvider.h>
 #import <ExpoModulesCore/EXReactNativeEventEmitter.h>
+#import <ExpoModulesCore/JSIInstaller.h>
 #import "ExpoModulesCore-Swift.h"
 
 static const NSString *exportedMethodsNamesKeyPath = @"exportedMethods";
@@ -28,6 +31,12 @@ static const NSString *methodInfoArgumentsCountKey = @"argumentsCount";
 @interface RCTBridge (RegisterAdditionalModuleClasses)
 
 - (void)registerAdditionalModuleClasses:(NSArray<Class> *)modules;
+
+@end
+
+@interface RCTBridge (JSIRuntime)
+
+- (void *)runtime;
 
 @end
 
@@ -87,6 +96,10 @@ RCT_EXPORT_MODULE(NativeUnimoduleProxy)
 
 - (NSDictionary *)constantsToExport
 {
+  facebook::jsi::Runtime *runtime = [_bridge respondsToSelector:@selector(runtime)] ? reinterpret_cast<facebook::jsi::Runtime *>(_bridge.runtime) : NULL;
+
+  installRuntimeObjects(*runtime, _bridge.jsCallInvoker);
+
   NSMutableDictionary <NSString *, id> *exportedModulesConstants = [NSMutableDictionary dictionary];
   // Grab all the constants exported by modules
   for (EXExportedModule *exportedModule in [_exModuleRegistry getAllExportedModules]) {
