@@ -2,7 +2,6 @@ package expo.modules.medialibrary.albums
 
 import android.provider.MediaStore
 import expo.modules.medialibrary.MediaLibraryConstants
-import expo.modules.medialibrary.MediaLibraryUtils
 import expo.modules.medialibrary.MockContext
 import expo.modules.medialibrary.MockData
 import expo.modules.medialibrary.mockContentResolver
