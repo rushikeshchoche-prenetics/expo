@@ -43,9 +43,9 @@ internal class GetAlbumInfoTests {
     val selectionSlot = slot<String>()
     val selectionArgsSlot = slot<Array<String>>()
 
-    mockkStatic(MediaLibraryUtils::class)
+    mockkStatic(::queryAlbum)
     every {
-      MediaLibraryUtils.queryAlbum(
+      queryAlbum(
         context,
         capture(selectionSlot),
         capture(selectionArgsSlot),
@@ -83,7 +83,7 @@ internal class GetAlbumInfoTests {
     val context = mockContext with mockContentResolver(cursor)
 
     // act
-    MediaLibraryUtils.queryAlbum(context, selection, selectionArgs, promise)
+    queryAlbum(context, selection, selectionArgs, promise)
 
     // assert
     promiseResolved(promise) {
@@ -99,7 +99,7 @@ internal class GetAlbumInfoTests {
     val context = mockContext with mockContentResolver(null)
 
     // act
-    MediaLibraryUtils.queryAlbum(context, "", emptyArray(), promise)
+    queryAlbum(context, "", emptyArray(), promise)
 
     // assert
     assertRejected(promise)
@@ -111,7 +111,7 @@ internal class GetAlbumInfoTests {
     val context = mockContext with throwableContentResolver(SecurityException())
 
     // act
-    MediaLibraryUtils.queryAlbum(context, "", emptyArray(), promise)
+    queryAlbum(context, "", emptyArray(), promise)
 
     // assert
     assertRejectedWithCode(promise, MediaLibraryConstants.ERROR_UNABLE_TO_LOAD_PERMISSION)
@@ -123,7 +123,7 @@ internal class GetAlbumInfoTests {
     val context = mockContext with throwableContentResolver(IllegalArgumentException())
 
     // act
-    MediaLibraryUtils.queryAlbum(context, "", emptyArray(), promise)
+    queryAlbum(context, "", emptyArray(), promise)
 
     // assert
     assertRejectedWithCode(promise, MediaLibraryConstants.ERROR_UNABLE_TO_LOAD)
