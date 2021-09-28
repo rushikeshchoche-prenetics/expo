@@ -8,6 +8,8 @@
 
 ### 🐛 Bug fixes
 
+- Fix expo-screen-orientation breaking for expo-updates + expo-splash-screen integration. ([#14519](https://github.com/expo/expo/pull/14519) by [@kudo](https://github.com/kudo))
+
 ### 💡 Others
 
 - Updated `@expo/config`, `@expo/webpack-config`, `@expo/metro-config` ([#14443](https://github.com/expo/expo/pull/14443) by [@EvanBacon](https://github.com/EvanBacon))
