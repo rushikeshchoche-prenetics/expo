@@ -5,16 +5,12 @@ import android.provider.MediaStore.Files.FileColumns
 import android.provider.MediaStore.MediaColumns
 import expo.modules.medialibrary.CursorResults
 import expo.modules.medialibrary.MediaLibraryConstants
-import expo.modules.medialibrary.MediaLibraryUtils
 import expo.modules.medialibrary.MockContext
 import expo.modules.medialibrary.MockData
 import expo.modules.medialibrary.mockContentResolver
 import expo.modules.medialibrary.throwableContentResolver
-import io.mockk.every
-import io.mockk.just
 import io.mockk.justRun
 import io.mockk.mockkStatic
-import io.mockk.runs
 import io.mockk.slot
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
