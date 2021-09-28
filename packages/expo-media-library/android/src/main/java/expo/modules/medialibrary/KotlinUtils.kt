@@ -3,7 +3,7 @@ package expo.modules.medialibrary
 // This will be moved to MediaLibraryUtils when it is kotlinized
 
 /**
- * Returns block result if the receiver is null
+ * Returns receiver, or block result if the receiver is `null`
  */
 inline fun <T> T?.ifNull(block: () -> T): T {
   if (this == null) {
@@ -11,3 +11,8 @@ inline fun <T> T?.ifNull(block: () -> T): T {
   }
   return this
 }
+
+/**
+ * If the receiver is instance of `T`, returns the receiver, otherwise returns `null`
+ */
+inline fun <reified T> Any?.takeIfInstanceOf(): T? = if (this is T) this else null
