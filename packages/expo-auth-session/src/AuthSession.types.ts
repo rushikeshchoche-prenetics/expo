@@ -5,6 +5,7 @@ export type AuthSessionOptions = {
   authUrl: string;
   returnUrl?: string;
   showInRecents?: boolean;
+  useEASAuthSession?: boolean;
 };
 
 export type AuthSessionResult =

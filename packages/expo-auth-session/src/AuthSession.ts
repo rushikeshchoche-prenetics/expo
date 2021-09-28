@@ -50,8 +50,14 @@ export async function startAsync(options: AuthSessionOptions): Promise<AuthSessi
     return { type: 'locked' };
   }
 
+  if (options.useEASAuthSession && !options.returnUrl) {
+    throw new Error(
+      'No returnUrl provided to AuthSession.startAsync. A returnUrl is required when using startAsync with useEASAuthSession = true.'
+    );
+  }
+
   const returnUrl = options.returnUrl || sessionUrlProvider.getDefaultReturnUrl();
-  const startUrl = sessionUrlProvider.getStartUrl(authUrl, returnUrl);
+  const startUrl = sessionUrlProvider.getStartUrl(!!options.useEASAuthSession, authUrl, returnUrl);
   const showInRecents = options.showInRecents || false;
 
   // About to start session, set lock
@@ -100,7 +106,7 @@ export const getDefaultReturnUrl = sessionUrlProvider.getDefaultReturnUrl;
  * @param path
  */
 export function getRedirectUrl(path?: string): string {
-  return sessionUrlProvider.getRedirectUrl(path);
+  return sessionUrlProvider.getRedirectUrl(false, path);
 }
 
 /**
@@ -184,7 +190,7 @@ export function makeRedirectUri({
     return url;
   }
   // Attempt to use the proxy
-  return sessionUrlProvider.getRedirectUrl(path);
+  return sessionUrlProvider.getRedirectUrl(false, path);
 }
 
 /**

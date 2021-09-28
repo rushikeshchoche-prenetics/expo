@@ -4,6 +4,7 @@ export declare type AuthSessionOptions = {
     authUrl: string;
     returnUrl?: string;
     showInRecents?: boolean;
+    useEASAuthSession?: boolean;
 };
 export declare type AuthSessionResult = {
     type: 'cancel' | 'dismiss' | 'locked';
